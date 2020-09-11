@@ -10,11 +10,24 @@ const swap = document.getElementById('swap');
 function caclulate() {
   const currency_one = currencyEl_one.value;
   const currency_two = currencyEl_two.value;
-
+  // console.log(currency_one);
   fetch(`https://api.exchangerate-api.com/v4/latest/${currency_one}`)
     .then(res => res.json())
     .then(data => {
-      // console.log(data);
+      console.log(data);
+      for (const tags in data.rates) {
+        let tag = document.createElement("option");
+        tag.textContent = `${tags}`;
+        tag.value = tags;
+        document.querySelector("#currency-one").appendChild(tag);
+      }
+      for (const tags in data.rates) {
+        let tag = document.createElement("option");
+        tag.textContent = `${tags}`;
+        tag.value = tags;
+        document.querySelector("#currency-two").appendChild(tag);
+      }
+
       const rate = data.rates[currency_two];
 
       rateEl.innerText = `1 ${currency_one} = ${rate} ${currency_two}`;
